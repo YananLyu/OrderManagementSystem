@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface OmsSkuRepository extends JpaRepository<OmsSku, Long> {
     List<OmsSku> findAll();
-//    List<OmsSku> findAllById(Iterable<Long> ids);
+    List<OmsSku> findAllById(Iterable<Long> ids);
+//    List<OmsSku> findById();
 }
