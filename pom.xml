@@ -22,7 +22,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!--        数据库-->
+        <!--        MySQL连接驱动-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -48,7 +48,7 @@
             <version>3.0.0</version>
         </dependency>
 
-        <!--        Junit test工具-->
+        <!--        Spring boot 集成Junit 测试的起步依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
