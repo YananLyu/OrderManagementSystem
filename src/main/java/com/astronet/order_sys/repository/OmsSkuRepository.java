@@ -10,5 +10,6 @@ import java.util.List;
 public interface OmsSkuRepository extends JpaRepository<OmsSku, Long> {
     List<OmsSku> findAll();
     List<OmsSku> findAllById(Iterable<Long> ids);
+    List<OmsSku> findAllByOrderByCreateTimeDesc();
 //    List<OmsSku> findById();
 }

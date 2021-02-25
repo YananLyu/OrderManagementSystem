@@ -1,5 +1,8 @@
-package com.astronet.order_sys.config;
+package com.astronet.order_sys.security;
 
+import com.astronet.order_sys.security.jwt.AuthEntryPointJwt;
+import com.astronet.order_sys.security.jwt.AuthTokenFilter;
+import com.astronet.order_sys.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

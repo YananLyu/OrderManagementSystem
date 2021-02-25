@@ -3,7 +3,6 @@ package com.astronet.order_sys;
 
 import com.astronet.order_sys.entity.OmsSku;
 import com.astronet.order_sys.repository.OmsSkuRepository;
-import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +16,15 @@ public class SkuTest {
 
     @Autowired
     private OmsSkuRepository omsSkuRepository;
+
+    /**
+     * Sort
+     */
+    @Test
+    public void testFindAllASC() {
+        List<OmsSku> sku = omsSkuRepository.findAllByOrderByCreateTimeDesc();
+        System.out.println(sku);
+    }
 
     /**
      * GET Methods
@@ -63,7 +71,7 @@ public class SkuTest {
      */
     @Test
     public void testSaveAll() {
-        ArrayList<OmsSku> entites = new ArrayList<>();
+        ArrayList<OmsSku> entities = new ArrayList<>();
 
         OmsSku sku = new OmsSku();
         sku.setCommissionId(2L);
@@ -83,10 +91,10 @@ public class SkuTest {
         sku2.setProductName("CSDN会员");
         sku2.setUnitPrice(200.02);
 
-        entites.add(sku);
-        entites.add(sku2);
+        entities.add(sku);
+        entities.add(sku2);
 
-        omsSkuRepository.saveAll(entites);
+        omsSkuRepository.saveAll(entities);
     }
 
 

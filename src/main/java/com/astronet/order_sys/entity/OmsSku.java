@@ -24,10 +24,9 @@ public class OmsSku {
     private Long id;
 
     /**
-     * 佣金
+     * order_id.代表该order本身。
      */
     @Column(name = "commission_id")
-    @NotNull(message = "CommissionId cannot be null")
     private Long commissionId;
 
     /**
@@ -82,6 +81,7 @@ public class OmsSku {
     private Date expireTime;
 
     @Column(name = "create_user")
+    @NotNull(message = "createUser should not be null")
     private Long createUser;
 
     @Column(name = "update_user")
