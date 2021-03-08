@@ -81,7 +81,7 @@ public class PmsInventory extends Auditable<String> {
     private String addrZipcode;
 
     /**
-     * zipcode
+     * country
      */
     @Size(max = 25)
     @Column(name = "addr_country")

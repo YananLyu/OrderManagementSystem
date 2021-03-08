@@ -19,6 +19,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 /**
+ * @author YananLyu
+ *
  * – @EnableWebSecurity allows Spring to find and automatically apply the class to the global Web Security.
  * <p>
  * – @EnableGlobalMethodSecurity provides AOP security on methods. It enables @PreAuthorize, @PostAuthorize,
