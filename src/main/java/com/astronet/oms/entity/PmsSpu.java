@@ -7,11 +7,10 @@ import org.hibernate.annotations.DynamicInsert;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Date;
 import java.util.List;
 
 /**
- * @author: Yanan Lyu
+ * @author Yanan Lyu
  * @date 3/1/21 11:13 PM
  */
 
@@ -24,15 +23,16 @@ import java.util.List;
  * @AllArgsConstructor ： 注在类上，提供类的全参构造
  * @NoArgsConstructor ： 注在类上，提供类的无参构造
  */
-@Entity
-@Table(name = "pms_spu")
-@DynamicInsert
+
 @Builder
 @EqualsAndHashCode(callSuper = false)
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert
+@Entity
+@Table(name = "pms_spu")
 public class PmsSpu extends Auditable<String> {
 
     /**

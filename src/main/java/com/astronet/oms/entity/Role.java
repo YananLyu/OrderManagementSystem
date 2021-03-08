@@ -2,6 +2,10 @@ package com.astronet.oms.entity;
 
 import javax.persistence.*;
 
+/**
+ * @author Yanan Lyu
+ * @date 2021/01/01
+ */
 @Entity
 @Table(name = "roles")
 public class Role {
