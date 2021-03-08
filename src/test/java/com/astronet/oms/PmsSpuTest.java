@@ -52,7 +52,6 @@ public class PmsSpuTest {
         System.out.println(spu.getProductLink());
         System.out.println(spu.getProductName());
         System.out.println(spu.getPmsSkuSet());
-        System.out.println(spu.getUpdateTime());
         System.out.println("************************");
 
     }
@@ -63,9 +62,9 @@ public class PmsSpuTest {
     @Test
     public void testSpuSave() {
         PmsSpu entity = new PmsSpu();
-        entity.setProductName("dell笔记本");
-        entity.setProductLink("https://www.dell.com/us/computing/buy/?CID=afl-ecomm-cjn-cha-092118-53026&cjevent=5d303c707c8411eb80c0016e0a1c0e11&utm_source=11557370&utm_medium=100334236&utm_campaign=0FOF63161473724829234&AID=11557370&PID=100334236&SID=0FOF63161473724829234");
-        entity.setPlatformSeller("dell官网");
+        entity.setProductName("MSI笔记本");
+        entity.setProductLink("https://www.MSI.com/us/computing/buy/?CID=afl-ecomm-cjn-cha-092118-53026&cjevent=5d303c707c8411eb80c0016e0a1c0e11&utm_source=11557370&utm_medium=100334236&utm_campaign=0FOF63161473724829234&AID=11557370&PID=100334236&SID=0FOF63161473724829234");
+        entity.setPlatformSeller("MSI官网");
 
         spuRepository.save(entity);
 
