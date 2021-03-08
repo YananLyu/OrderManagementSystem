@@ -60,6 +60,12 @@
             <version>3.0.0</version>
         </dependency>
 
+        <!--        lombok 省去写getter setter-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
         <!--        Spring boot 集成Junit 测试的起步依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -73,6 +79,11 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
