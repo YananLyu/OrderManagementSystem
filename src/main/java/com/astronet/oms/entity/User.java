@@ -1,5 +1,9 @@
 package com.astronet.oms.entity;
 
+import com.astronet.oms.entity.auditor.Auditable;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,13 +16,20 @@ import javax.validation.constraints.Size;
  * @author Yanan Lyu
  * @date 2021/01/01
  */
+@Builder
+@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@DynamicInsert
 @Entity
 @Table(	name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
         })
-public class User {
+public class User extends Auditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,53 +53,28 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User() {
-    }
+    /**
+     * 连接用户的详细信息userInfo
+     * 用user 的id 当做该表的外键。共享ID
+     * Using a Shared Primary Key
+     */
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @PrimaryKeyJoinColumn
+    private UserInfo userInfo;
+
+    /**
+     * 连接用户的钱，userMoney
+     * 用user 的id 当做该表的外键。共享ID
+     * Using a Shared Primary Key
+     */
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @PrimaryKeyJoinColumn
+    private UserMoney userMoney;
 
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 }
 
