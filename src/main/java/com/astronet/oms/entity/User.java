@@ -60,7 +60,7 @@ public class User extends Auditable<String> {
      */
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
-    private UserInfo userInfo;
+    private UserProfile userProfile;
 
     /**
      * 连接用户的钱，userMoney
@@ -70,6 +70,8 @@ public class User extends Auditable<String> {
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
     private UserMoney userMoney;
+
+
 
     public User(String username, String email, String password) {
         this.username = username;

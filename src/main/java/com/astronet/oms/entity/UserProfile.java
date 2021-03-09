@@ -19,8 +19,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @DynamicInsert
 @Entity
-@Table(name = "user_info")
-public class UserInfo extends Auditable<String> {
+@Table(name = "user_profile")
+public class UserProfile extends Auditable<String> {
 
     /**
      * ID，唯一主键

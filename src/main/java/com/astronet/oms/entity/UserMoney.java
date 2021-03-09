@@ -46,16 +46,16 @@ public class UserMoney extends Auditable<String> {
      */
     @Min(0)
     @NotNull
-    @Column(name = "on_hold", precision = 10, scale = 2)
-    private BigDecimal onHold;
+    @Column(name = "on_hold_amount", precision = 10, scale = 2)
+    private BigDecimal onHoldAmount;
 
     /**
      * 用户金额的balance的钱数
      * 可以为负值
      */
     @NotNull
-    @Column(name = "balance", precision = 10, scale = 2)
-    private BigDecimal balance;
+    @Column(name = "balance_amount", precision = 10, scale = 2)
+    private BigDecimal balanceAmount;
 
     /**
      * 用户金额的pending的钱数
@@ -63,6 +63,15 @@ public class UserMoney extends Auditable<String> {
      */
     @Min(0)
     @NotNull
-    @Column(name = "pending", precision = 10, scale = 2)
-    private BigDecimal pending;
+    @Column(name = "pending_amount", precision = 10, scale = 2)
+    private BigDecimal pendingAmount;
+
+    /**
+     * 用户request返款的金额
+     * 不可以为负值
+     */
+    @Min(0)
+    @NotNull
+    @Column(name = "request_amount", precision = 10, scale = 2)
+    private BigDecimal requestAmount;
 }
