@@ -85,6 +85,13 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!--        Introducing Spring HATEOAS, a Spring project aimed at helping you write hypermedia-driven outputs.
+        To upgrade your service to being RESTful, add this to your build:-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

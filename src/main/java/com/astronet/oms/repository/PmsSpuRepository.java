@@ -4,6 +4,8 @@ import com.astronet.oms.entity.PmsSpu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 /**
  * @author: Yanan Lyu
@@ -12,4 +14,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PmsSpuRepository extends JpaRepository<PmsSpu, Long> {
 
+    /**
+     * 查
+     * @return
+     */
+    List<PmsSpu> findAllByOrderByIdDesc();
 }
