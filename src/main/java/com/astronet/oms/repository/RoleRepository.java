@@ -1,6 +1,6 @@
 package com.astronet.oms.repository;
 
-import com.astronet.oms.entity.ERole;
+import com.astronet.oms.enums.ERole;
 import com.astronet.oms.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

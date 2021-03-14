@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import com.astronet.oms.entity.ERole;
+import com.astronet.oms.enums.ERole;
 import com.astronet.oms.entity.Role;
 import com.astronet.oms.entity.User;
 import com.astronet.oms.payload.request.LoginRequest;

@@ -1,5 +1,6 @@
 package com.astronet.oms.entity;
 
+import com.astronet.oms.enums.ERole;
 import lombok.Getter;
 import lombok.Setter;
 
