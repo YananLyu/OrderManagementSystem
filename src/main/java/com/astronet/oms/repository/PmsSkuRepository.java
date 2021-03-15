@@ -20,4 +20,8 @@ public interface PmsSkuRepository extends JpaRepository<PmsSku, Long> {
      */
     List<PmsSku> findAllByOrderByIdDesc();
 
+    List<PmsSku> findByOfferStatus(Integer status);
+
+    long countByOfferStatus();
+
 }

@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author Zhubo Deng
+ * @date 3/13/21 9:42 PM
+ */
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
@@ -48,25 +52,25 @@ public class SkuController {
         return ResponseEntity.ok(item);
     }
 
-//    @GetMapping("/offers/activeOfferNumber")
-//    public Long activeOfferNumber() {
-//        return Long.valueOf(repository.findByOfferStatusActive().size());
-//    }
-//
-//    @GetMapping("/offers/activeOfferNumber")
-//    public Long inactiveOfferNumber() {
-//        return Long.valueOf(repository.findByOfferStatusActive().size());
-//    }
-//
-//    @GetMapping("/offers/activeOffers")
-//    public List<PmsSku> activeOffers() {
-//        return repository.findByOfferStatusActive();
-//    }
-//
-//    @GetMapping("/offers/active")
-//    public List<PmsSku> inactiveOffers() {
-//        return repository.findByOfferStatusInactive();
-//    }
+
+
+    /**
+     * R - Retrieval all the active offers
+     * @return
+     */
+    @GetMapping("/offers/active")
+    public List<PmsSku> activeOffers() {
+        return repository.findByOfferStatus(Integer.valueOf(1));
+    }
+
+    /**
+     * R - Retrieval all the inactive offers
+     * @return
+     */
+    @GetMapping("/offers/inactive")
+    public List<PmsSku> inactiveOffers() {
+        return repository.findByOfferStatus(Integer.valueOf(0));
+    }
 
     /**
      * U - Update

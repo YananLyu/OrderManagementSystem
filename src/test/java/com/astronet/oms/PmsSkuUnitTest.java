@@ -42,7 +42,7 @@ public class PmsSkuUnitTest {
     @Test
     public void testSkuFindAll() {
         List<PmsSku> res = pmsSkuRepository.findAll();
-        assertThat(res).size().isGreaterThan(0);
+        assertThat(res).size().isGreaterThanOrEqualTo(0);
     }
 
     /**
@@ -52,6 +52,20 @@ public class PmsSkuUnitTest {
     public void testSkuFindById() {
         Optional<PmsSku> res = pmsSkuRepository.findById(2L);
         assertThat(res.get().getId()).isEqualTo(2L);
+    }
+
+    @Test
+    public void testSkuActive() {
+        List<PmsSku> res = pmsSkuRepository.findByOfferStatus(Integer.valueOf(1));
+        System.out.println(res.size());
+        assertThat(res).size().isGreaterThanOrEqualTo(0);
+    }
+
+    @Test
+    public void testSkuInactive() {
+        List<PmsSku> res = pmsSkuRepository.findByOfferStatus(Integer.valueOf(0));
+        System.out.println(res.size());
+        assertThat(res).size().isGreaterThanOrEqualTo(0);
     }
 
     /**
