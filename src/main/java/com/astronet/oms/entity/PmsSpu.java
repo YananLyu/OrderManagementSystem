@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class PmsSpu extends Auditable<String> {
     /**
      * 一对多的关系，一个spu可以有多个sku
      * product/pms_spu id, 外键,将产品信息关联进来
+
      */
     @OneToMany(mappedBy = "pmsSpu", fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
     private List<PmsSku> pmsSkuSet;

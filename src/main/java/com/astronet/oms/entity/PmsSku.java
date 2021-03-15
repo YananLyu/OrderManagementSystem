@@ -6,6 +6,7 @@ package com.astronet.oms.entity;
  */
 
 import com.astronet.oms.entity.auditor.Auditable;
+import com.astronet.oms.enums.OfferStatusEnum;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -49,7 +50,10 @@ public class PmsSku extends Auditable<String> {
     /**
      * 多对一的关系，一个spu可以有多个sku
      * product/pms_spu id, 外键,将产品信息关联进来
+     *
+     * TODO：NotNull保证发布offer时候，spu 必须指定。你再确认下
      */
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "spu_id")
     private PmsSpu pmsSpu;
@@ -96,10 +100,14 @@ public class PmsSku extends Auditable<String> {
      * 1: ACTIVE
      * 0: INACTIVE
      * default value: 1;offer创建时候便默认为ACTIVE
+     *
+     *     @NotNull
+     *     @Column(name = "offer_status", columnDefinition = "TINYINT DEFAULT 1")
+     *     private Integer offerStatus;
      */
     @NotNull
-    @Column(name = "offer_status", columnDefinition = "TINYINT DEFAULT 1")
-    private Integer offerStatus;
+    @Column(name = "offer_status")
+    private OfferStatusEnum offerStatus;
 
     /**
      * 该offer的备注或注释

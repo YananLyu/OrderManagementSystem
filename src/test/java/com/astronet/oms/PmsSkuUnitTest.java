@@ -1,6 +1,7 @@
 package com.astronet.oms;
 
 import com.astronet.oms.entity.PmsSku;
+import com.astronet.oms.enums.OfferStatusEnum;
 import com.astronet.oms.repository.PmsSkuRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +20,18 @@ public class PmsSkuUnitTest {
     private PmsSkuRepository pmsSkuRepository;
 
     /**
+     * TODO： save new Offer时候，如果没有对应的SPU则不可以save。
      * Test C - Create
      */
     @Test
     public void testSkuSaveNewOffer() {
         PmsSku pmsSku = PmsSku.builder()
-                .unitPrice(BigDecimal.valueOf(222.0))
+                .unitPrice(BigDecimal.valueOf(999.0))
                 .adminPrice(BigDecimal.valueOf(333.0))
                 .modPrice(BigDecimal.valueOf(111.0))
-                .quantity(5L)
-                .quantityLeft(5L)
-                .offerStatus(1)
+                .quantity(10L)
+                .quantityLeft(10L)
+                .offerStatus(OfferStatusEnum.ACTIVE)
                 .offerNote("New Offer")
                 .build();
         PmsSku savedPmsSku = pmsSkuRepository.save(pmsSku);
@@ -51,6 +53,8 @@ public class PmsSkuUnitTest {
     @Test
     public void testSkuFindById() {
         Optional<PmsSku> res = pmsSkuRepository.findById(2L);
+        System.out.println("**************");
+        System.out.println(res.get().getOfferStatus());
         assertThat(res.get().getId()).isEqualTo(2L);
     }
 
@@ -79,7 +83,7 @@ public class PmsSkuUnitTest {
                 .modPrice(BigDecimal.valueOf(222.0))
                 .quantity(8L)
                 .quantityLeft(8L)
-                .offerStatus(1)
+//                .offerStatus(1)
                 .offerNote("New Offer")
                 .build();
         Optional<PmsSku> res = pmsSkuRepository.findById(4L);
