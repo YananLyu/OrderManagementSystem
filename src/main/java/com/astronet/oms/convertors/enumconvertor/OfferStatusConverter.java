@@ -1,6 +1,6 @@
 package com.astronet.oms.convertors.enumconvertor;
 
-import com.astronet.oms.enums.ERole;
+import com.astronet.oms.enums.OfferStatusEnum;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
@@ -15,23 +15,23 @@ import java.util.stream.Stream;
  * on the entity's field.
  */
 @Converter(autoApply = true)
-public class RoleConvertor implements AttributeConverter {
+public class OfferStatusConverter implements AttributeConverter<OfferStatusEnum, Integer> {
 
     @Override
-    public Object convertToDatabaseColumn(Object attribute) {
+    public Integer convertToDatabaseColumn(OfferStatusEnum attribute) {
         if (attribute == null) {
             return null;
         }
-        return ((ERole)attribute).getCode();
+        return attribute.getCode();
     }
 
     @Override
-    public Object convertToEntityAttribute(Object dbData) {
+    public OfferStatusEnum convertToEntityAttribute(Integer dbData) {
         if (dbData == null) {
             return null;
         }
 
-        return Stream.of(ERole.values())
+        return Stream.of(OfferStatusEnum.values())
                 .filter(r -> r.getCode().equals(dbData))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);

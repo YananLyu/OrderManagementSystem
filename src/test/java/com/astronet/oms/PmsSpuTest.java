@@ -3,7 +3,7 @@ package com.astronet.oms;
 import com.astronet.oms.entity.PmsInventory;
 import com.astronet.oms.entity.PmsSku;
 import com.astronet.oms.entity.PmsSpu;
-import com.astronet.oms.enums.OfferStatus;
+import com.astronet.oms.enums.OfferStatusEnum;
 import com.astronet.oms.repository.PmsInventoryRepository;
 import com.astronet.oms.repository.PmsSkuRepository;
 import com.astronet.oms.repository.PmsSpuRepository;
@@ -128,7 +128,7 @@ public class PmsSpuTest {
         Set<PmsInventory> inventories = new HashSet<>();
         inventories.add(pmsInventoryRepository.getOne(1L));
         sku.setPmsInventories(inventories);
-        sku.setOfferStatus(1);
+//        sku.setOfferStatus(1);
 
         sku.setPmsSpu(spu);
 
@@ -149,7 +149,7 @@ public class PmsSpuTest {
         sku.setQuantityLeft(66L);
         sku.setOfferNote("两种颜色都要。");
         sku.setUnitPrice(BigDecimal.valueOf(538.99));
-        sku.setOfferStatus(1);
+//        sku.setOfferStatus(1);
 
         Optional<PmsSpu> spu = spuRepository.findById(1L);
         sku.setPmsSpu(spu.get());
@@ -196,8 +196,8 @@ public class PmsSpuTest {
 
     @Test
     private void testOfferStatus() {
-        OfferStatus[] res = OfferStatus.values();
-        for (OfferStatus os : res) {
+        OfferStatusEnum[] res = OfferStatusEnum.values();
+        for (OfferStatusEnum os : res) {
             System.out.println(os);
         }
 

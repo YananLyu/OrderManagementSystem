@@ -1,6 +1,6 @@
 package com.astronet.oms.entity;
 
-import com.astronet.oms.enums.ERole;
+import com.astronet.oms.enums.RoleEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,9 +19,9 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    private ERole name;
+//    @Enumerated(EnumType.STRING)
+//    @Column(length = 20)
+    private RoleEnum name;
 
     public Role() {
 
