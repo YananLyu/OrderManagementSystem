@@ -91,7 +91,7 @@ public class PmsInventory extends Auditable<String> {
      * 多对一的关系，多个仓库可以对应一个人
      * 通过user_id这个外键，把仓库指定给某个user
      */
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

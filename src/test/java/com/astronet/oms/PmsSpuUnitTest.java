@@ -1,5 +1,6 @@
 package com.astronet.oms;
 
+import com.astronet.oms.convertors.dtoconverter.PmsSpuConverter;
 import com.astronet.oms.entity.PmsSpu;
 import com.astronet.oms.repository.PmsSpuRepository;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ import static org.assertj.core.api.Assertions.*;
 public class PmsSpuUnitTest {
 
     @Autowired
-    private PmsSpuRepository pmsSpuRepository;
+    private PmsSpuRepository repository;
 
     /**
      * Test C - Create
@@ -27,7 +28,7 @@ public class PmsSpuUnitTest {
                 .productLink("https://www.Dell.com/us/computing/buy/?CID=afl-ecomm-cjn-cha-092118-53026&cjevent=5d303c707c8411eb80c0016e0a1c0e11&utm_source=11557370&utm_medium=100334236&utm_campaign=0FOF63161473724829234&AID=11557370&PID=100334236&SID=0FOF63161473724829234")
                 .platformSeller("Dell官网")
                 .build();
-        PmsSpu savedPmsSpu = pmsSpuRepository.save(pmsSpu);
+        PmsSpu savedPmsSpu = repository.save(pmsSpu);
         assertThat(savedPmsSpu.getId()).isGreaterThan(0);
     }
 
@@ -36,8 +37,8 @@ public class PmsSpuUnitTest {
      */
     @Test
     public void testSpuFindAll() {
-        List<PmsSpu> res = pmsSpuRepository.findAll();
-        assertThat(res).size().isGreaterThan(0);
+        List<PmsSpu> res = repository.findAll();
+        assertThat(res).size().isGreaterThanOrEqualTo(0);
     }
 
     /**
@@ -45,7 +46,7 @@ public class PmsSpuUnitTest {
      */
     @Test
     public void testSpuFindById() {
-        Optional<PmsSpu> res = pmsSpuRepository.findById(1L);
+        Optional<PmsSpu> res = repository.findById(1L);
         assertThat(res.get().getId()).isEqualTo(1L);
     }
 
@@ -59,19 +60,19 @@ public class PmsSpuUnitTest {
                 .productLink("https://deals.Lenovo.com/en-us/mpp/productdetail/7tog?AID=889052&cjevent=c955b4fa7d5e11eb83ec00340a1c0e14&cjdata=MXxOfDB8WXww&gacd=9614781-23761182-5750457-265988609-127889515&dgc=af&VEN1=12578053-889052-11000_1692869_0-PricePP%20LLC-https://deals.dell.com/en-us/mpp/productdetail/7tog&dclid=COTVm6uUmO8CFUeuAQodFAUMbw")
                 .platformSeller("Lenovo官网")
                 .build();
-        Optional<PmsSpu> res = pmsSpuRepository.findById(5L);
+        Optional<PmsSpu> res = repository.findById(5L);
 
         res.map(spu -> {
             spu.setProductName(newPmsSpu.getProductName());
             spu.setProductLink(newPmsSpu.getProductLink());
             spu.setPlatformSeller(newPmsSpu.getPlatformSeller());
-            return pmsSpuRepository.save(spu);
+            return repository.save(spu);
         }).orElseGet(() -> {
             newPmsSpu.setId(5L);
-            return pmsSpuRepository.save(newPmsSpu);
+            return repository.save(newPmsSpu);
         });
 
-        Optional<PmsSpu> updatedPmsSpu = pmsSpuRepository.findById(5L);
+        Optional<PmsSpu> updatedPmsSpu = repository.findById(5L);
         assertThat(updatedPmsSpu.get().getProductName()).isEqualTo(newPmsSpu.getProductName());
         assertThat(updatedPmsSpu.get().getProductLink()).isEqualTo(newPmsSpu.getProductLink());
         assertThat(updatedPmsSpu.get().getPlatformSeller()).isEqualTo(newPmsSpu.getPlatformSeller());
@@ -82,9 +83,9 @@ public class PmsSpuUnitTest {
      */
     @Test
     public void testSpuDelete() {
-        Optional<PmsSpu> res = pmsSpuRepository.findById(3L);
-        pmsSpuRepository.deleteById(res.get().getId());
-        Optional<PmsSpu> deletedPmsSpu = pmsSpuRepository.findById(3L);
+        Optional<PmsSpu> res = repository.findById(3L);
+        repository.deleteById(res.get().getId());
+        Optional<PmsSpu> deletedPmsSpu = repository.findById(3L);
         assertThat(deletedPmsSpu.isPresent()).isFalse();
     }
 

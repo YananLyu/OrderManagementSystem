@@ -1,7 +1,7 @@
 package com.astronet.oms.enums;
 
 import lombok.Getter;
-import org.omg.CORBA.UNKNOWN;
+//import org.omg.CORBA.UNKNOWN;
 
 /**
  * @author: Yanan Lyu

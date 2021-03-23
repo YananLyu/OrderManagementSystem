@@ -1,8 +1,11 @@
 package com.astronet.oms.controller;
 
+import com.astronet.oms.convertors.dtoconverter.PmsSpuConverter;
+import com.astronet.oms.dtos.PmsSpuDto;
 import com.astronet.oms.entity.PmsSpu;
 import com.astronet.oms.exception.SpuNotFoundException;
 import com.astronet.oms.repository.PmsSpuRepository;
+import com.astronet.oms.service.PmsSpuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,15 +34,16 @@ public class SpuController {
      */
 
     @Autowired
-    private PmsSpuRepository repository;
+    private PmsSpuService service;
 
     /**
      * 增 C
-     * @return pmsSpu 即新增加的产品
+     * @param pmsSpuDto
+     * @return
      */
     @PostMapping("/products")
-    public PmsSpu newProduct(@RequestBody  PmsSpu pmsSpu) {
-        return repository.save(pmsSpu);
+    public PmsSpuDto createProduct(@RequestBody PmsSpuDto pmsSpuDto) {
+        return service.createProduct(pmsSpuDto);
     }
 
     /**
@@ -47,10 +51,11 @@ public class SpuController {
      * 查多条记录
      * @return List<PmsSpu>  即products列表，按照ID倒序排
      */
-    @GetMapping("/products")
-    public List<PmsSpu> all() {
-        return repository.findAllByOrderByIdDesc();
-    }
+//    @GetMapping("/products")
+//    public List<PmsSpuDto> readAllProduct() {
+//        List<PmsSpu> findAll = repository.findAllByOrderByIdDesc();
+//        return converter.entityToDto(findAll);
+//    }
 
     /**
      * 查 R
@@ -59,32 +64,19 @@ public class SpuController {
      * @return ResponseEntity<PmsSpu>
      */
     @GetMapping("/products/{id}")
-    public ResponseEntity<PmsSpu> one(@PathVariable Long id) {
-        PmsSpu item = repository.findById(id)
-                .orElseThrow(() -> new SpuNotFoundException(id));
-
-        return ResponseEntity.ok(item);
+    public ResponseEntity<PmsSpuDto> readOneProduct(@PathVariable Long id) {
+        return ResponseEntity.ok(service.readOneProduct(id));
     }
 
     /**
      * 改 U
-     * @param newPmsSpu
+     * @param newPmsSpuDto
      * @param id
      * @return
      */
     @PutMapping("/products/{id}")
-    public PmsSpu replaceProduct(@RequestBody PmsSpu newPmsSpu, @PathVariable Long id) {
-
-        return repository.findById(id)
-                .map(spu -> {
-                    spu.setPlatformSeller(newPmsSpu.getPlatformSeller());
-                    spu.setProductName(newPmsSpu.getProductName());
-                    return repository.save(spu);
-                })
-                .orElseGet(() -> {
-                    newPmsSpu.setId(id);
-                    return repository.save(newPmsSpu);
-                });
+    public PmsSpuDto updateProduct(@RequestBody PmsSpuDto newPmsSpuDto, @PathVariable Long id) {
+        return service.updateProduct(newPmsSpuDto, id);
     }
 
     /**
@@ -94,8 +86,7 @@ public class SpuController {
      */
     @DeleteMapping("/products/{id}")
     public void deleteProduct(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.deleteProduct(id);
     }
-
 
 }
