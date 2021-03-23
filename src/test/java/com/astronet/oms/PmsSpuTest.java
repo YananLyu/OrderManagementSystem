@@ -151,7 +151,7 @@ public class PmsSpuTest {
         sku.setUnitPrice(BigDecimal.valueOf(538.99));
 //        sku.setOfferStatus(1);
 
-        Optional<PmsSpu> spu = spuRepository.findById(1L);
+        Optional<PmsSpu> spu = spuRepository.findById(4L);
         sku.setPmsSpu(spu.get());
 
 

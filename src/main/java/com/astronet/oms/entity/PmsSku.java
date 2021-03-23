@@ -54,7 +54,8 @@ public class PmsSku extends Auditable<String> {
      * TODO：NotNull保证发布offer时候，spu 必须指定。你再确认下
      */
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "spu_id")
     private PmsSpu pmsSpu;
 
@@ -120,7 +121,7 @@ public class PmsSku extends Auditable<String> {
      * sku和inventory是M:N的关系
      * 仓库ID，表示可以下单到哪些仓库
      */
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "sku_inventory",
             joinColumns = @JoinColumn(name = "sku_id"),
             inverseJoinColumns = @JoinColumn(name = "inventory_id"))

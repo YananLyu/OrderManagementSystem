@@ -6,6 +6,7 @@ package com.astronet.oms.entity;
  */
 
 import com.astronet.oms.entity.auditor.Auditable;
+import com.astronet.oms.enums.InboundStatusEnum;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -57,13 +58,13 @@ public class OmsOrder extends Auditable<String> {
      */
     @NotNull
     @Column(name = "order_status", columnDefinition = "TINYINT DEFAULT 0")
-    private Integer orderStatus;
+    private InboundStatusEnum orderStatus;
 
     /**
      * user_id
      * M：1，一个user_id 可以对应多个order，一个order只能对应一个user
      */
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

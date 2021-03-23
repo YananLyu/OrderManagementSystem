@@ -48,7 +48,7 @@ public class PmsSpu extends Auditable<String> {
      * product/pms_spu id, 外键,将产品信息关联进来
 
      */
-    @OneToMany(mappedBy = "pmsSpu", fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "pmsSpu", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
     private List<PmsSku> pmsSkuSet;
 
     /**

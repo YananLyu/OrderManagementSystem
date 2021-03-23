@@ -1,6 +1,7 @@
 package com.astronet.oms.repository;
 
 import com.astronet.oms.entity.PmsSku;
+import com.astronet.oms.enums.OfferStatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,5 +20,11 @@ public interface PmsSkuRepository extends JpaRepository<PmsSku, Long> {
      * @return
      */
     List<PmsSku> findAllByOrderByIdDesc();
+
+    List<PmsSku> findByOfferStatus(OfferStatusEnum status);
+
+    long countByOfferStatus(OfferStatusEnum status);
+
+    long countByQuantity(Long quantity);
 
 }

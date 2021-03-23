@@ -44,7 +44,7 @@ public class OmsExpressTracking extends Auditable<String> {
     /**
      * order_id    1:M
      */
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private OmsOrder omsOrder;
 
