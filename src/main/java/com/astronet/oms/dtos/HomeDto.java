@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
  * @author Yanan Lyu
  * @date 3/23/21 11:49 PM
  */
-//@Data
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

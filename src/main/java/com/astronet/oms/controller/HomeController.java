@@ -8,6 +8,7 @@ import com.astronet.oms.enums.OfferStatusEnum;
 import com.astronet.oms.repository.OmsOrderRepository;
 import com.astronet.oms.repository.PmsSkuRepository;
 import com.astronet.oms.repository.PmsSpuRepository;
+import com.astronet.oms.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +26,37 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class HomeController {
 
-    @Autowired
-    PmsSkuRepository pmsSkuRepository;
-
 //    @Autowired
-//    OmsOrderRepository omsOrderRepository;
+//    PmsSkuRepository pmsSkuRepository;
+//
+////    @Autowired
+////    OmsOrderRepository omsOrderRepository;
+//
+//    /**
+//     * 查  R
+//     * 返回offer， inbound，outbound，payment对应的case数量
+//     * @return HomeDto
+//     * TODO: inbound, outbound, payment暂时用的hard code的数据。
+//     */
+//    @GetMapping("/home")
+//    public HomeDto getOffersInfo() {
+//        Long numOfActiveOffers = pmsSkuRepository.countByOfferStatus(OfferStatusEnum.ACTIVE);
+//        Long numOfExpiredOffers = pmsSkuRepository.countByOfferStatus(OfferStatusEnum.INACTIVE);
+//
+//        HomeDto homeDto = HomeDto.builder()
+//                .numOfActiveOffers(numOfActiveOffers)
+//                .numOfExpiredOffers(numOfExpiredOffers)
+//                .numOfProposedOffers(0L)
+//                .numOfInboundItem(2L)
+//                .numOfReportedItem(1L)
+//                .numOfOutboundShipments(3L)
+//                .numOfPaymentRequests(1L)
+//                .build();
+//        return homeDto;
+//    }
+
+    @Autowired
+    HomeService homeService;
 
     /**
      * 查  R
@@ -39,18 +66,6 @@ public class HomeController {
      */
     @GetMapping("/home")
     public HomeDto getOffersInfo() {
-        Long numOfActiveOffers = pmsSkuRepository.countByOfferStatus(OfferStatusEnum.ACTIVE);
-        Long numOfExpiredOffers = pmsSkuRepository.countByOfferStatus(OfferStatusEnum.INACTIVE);
-
-        HomeDto homeDto = HomeDto.builder()
-                .numOfActiveOffers(numOfActiveOffers)
-                .numOfExpiredOffers(numOfExpiredOffers)
-                .numOfProposedOffers(0L)
-                .numOfInboundItem(2L)
-                .numOfReportedItem(1L)
-                .numOfOutboundShipments(3L)
-                .numOfPaymentRequests(1L)
-                .build();
-        return homeDto;
+        return homeService.getOffersInfo();
     }
 }
