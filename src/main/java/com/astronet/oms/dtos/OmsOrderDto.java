@@ -24,7 +24,4 @@ public class OmsOrderDto {
     private Long skuCreatedByUserId;
     private String skuCreatedByUserName;
 
-
-
-
 }
