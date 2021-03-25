@@ -7,13 +7,14 @@ import com.astronet.oms.repository.PmsSpuRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Zhubo Deng
  * @date 03/23/2021 5:34 AM
  */
 
-@Component
+@Service
 public class PmsSpuService {
 
     @Autowired

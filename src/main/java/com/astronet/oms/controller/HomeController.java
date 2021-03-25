@@ -26,35 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class HomeController {
 
-//    @Autowired
-//    PmsSkuRepository pmsSkuRepository;
-//
-////    @Autowired
-////    OmsOrderRepository omsOrderRepository;
-//
-//    /**
-//     * 查  R
-//     * 返回offer， inbound，outbound，payment对应的case数量
-//     * @return HomeDto
-//     * TODO: inbound, outbound, payment暂时用的hard code的数据。
-//     */
-//    @GetMapping("/home")
-//    public HomeDto getOffersInfo() {
-//        Long numOfActiveOffers = pmsSkuRepository.countByOfferStatus(OfferStatusEnum.ACTIVE);
-//        Long numOfExpiredOffers = pmsSkuRepository.countByOfferStatus(OfferStatusEnum.INACTIVE);
-//
-//        HomeDto homeDto = HomeDto.builder()
-//                .numOfActiveOffers(numOfActiveOffers)
-//                .numOfExpiredOffers(numOfExpiredOffers)
-//                .numOfProposedOffers(0L)
-//                .numOfInboundItem(2L)
-//                .numOfReportedItem(1L)
-//                .numOfOutboundShipments(3L)
-//                .numOfPaymentRequests(1L)
-//                .build();
-//        return homeDto;
-//    }
-
     @Autowired
     HomeService homeService;
 
@@ -62,7 +33,6 @@ public class HomeController {
      * 查  R
      * 返回offer， inbound，outbound，payment对应的case数量
      * @return HomeDto
-     * TODO: inbound, outbound, payment暂时用的hard code的数据。
      */
     @GetMapping("/home")
     public HomeDto getOffersInfo() {

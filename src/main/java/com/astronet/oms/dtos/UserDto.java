@@ -4,5 +4,5 @@ package com.astronet.oms.dtos;
  * @author Zhubo Deng
  * @date 03/23/2021 3:56 AM
  */
-public interface UserDto extends Dto {
+public interface UserDto {
 }

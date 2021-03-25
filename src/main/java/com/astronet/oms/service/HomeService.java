@@ -16,6 +16,10 @@ public class HomeService {
     @Autowired
     PmsSkuRepository pmsSkuRepository;
 
+    /**
+     * TODO: inbound, outbound, payment暂时用的hard code的数据。
+     * @return HomeDto
+     */
     public HomeDto getOffersInfo() {
         Long numOfActiveOffers = pmsSkuRepository.countByOfferStatus(OfferStatusEnum.ACTIVE);
         Long numOfExpiredOffers = pmsSkuRepository.countByOfferStatus(OfferStatusEnum.INACTIVE);
