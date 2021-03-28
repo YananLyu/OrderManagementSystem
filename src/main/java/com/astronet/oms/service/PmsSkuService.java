@@ -35,11 +35,15 @@ public class PmsSkuService {
      * C - Create; create spu & sku instance from one DTO, save to both repo
      * @param pmsSkuCreateDto
      * @return
+     *
+     * FIXME：@zhubo 问题是： 存入sku失败时候，spu存入成功了。要保证它俩一起，要么都成功，要么都失败
      */
     public PmsSkuDto createOffer(PmsSkuCreateDto pmsSkuCreateDto) {
         PmsSpu savedPmsSpu = pmsSpuRepository.save(mapper.map(pmsSkuCreateDto, PmsSpu.class));
         PmsSku pmsSku = mapper.map(pmsSkuCreateDto, PmsSku.class);
         pmsSku.setPmsSpu(savedPmsSpu);
+        pmsSku.setQuantityLeft(pmsSku.getQuantity());
+        pmsSku.setOfferStatus(OfferStatusEnum.ACTIVE);
         PmsSku savedPmsSku = pmsSkuRepository.save(pmsSku);
 
         PmsSkuCreateDto returnedDto = mapper.map(savedPmsSku, PmsSkuCreateDto.class);
@@ -53,6 +57,7 @@ public class PmsSkuService {
     /**
      * R - Read all
      * @return
+     * FIXME：@zhubo 确认下返回结果是否正确。需要的数据参照我发在slack了的截图，在front-snapshot channel里
      */
     public List<PmsSkuDto> readAllOffers() {
         List<PmsSku> findAll = pmsSkuRepository.findAllByOrderByIdDesc();
@@ -65,6 +70,7 @@ public class PmsSkuService {
      * R - Read One
      * @param id
      * @return
+     * FIXME：@zhubo 确认下返回结果是否正确。需要的数据参照我发在slack了的截图，在front-snapshot channel里
      */
     public PmsSkuDto readOneOffer(Long id) {
         PmsSku item = pmsSkuRepository.findById(id)
@@ -75,9 +81,11 @@ public class PmsSkuService {
     /**
      * R - Retrieval all the active offers
      * @return
+     * FIXME：@zhubo 确认下返回结果是否正确。需要的数据参照我发在slack了的截图，在front-snapshot channel里
      */
     public List<PmsSkuDto> activeOffers() {
         List<PmsSku> items = pmsSkuRepository.findByOfferStatus(OfferStatusEnum.ACTIVE);
+        System.out.println(items);
         return items.stream()
                 .map(x -> mapper.map(x, PmsSkuReadDto.class))
                 .collect(Collectors.toList());
@@ -86,6 +94,7 @@ public class PmsSkuService {
     /**
      * R - Retrieval all the inactive offers
      * @return
+     * FIXME：@zhubo 确认下返回结果是否正确。需要的数据参照我发在slack了的截图，在front-snapshot channel里
      */
     public List<PmsSkuDto> inactiveOffers() {
         List<PmsSku> items = pmsSkuRepository.findByOfferStatus(OfferStatusEnum.INACTIVE);

@@ -89,7 +89,13 @@ public class PmsSkuUnitTest {
     @Test
     public void testSkuActive() {
         List<PmsSku> res = repository.findByOfferStatus(OfferStatusEnum.ACTIVE);
+        System.out.println("------------------------");
         System.out.println(res.size());
+        System.out.println(res.get(0).toString());
+        System.out.println(res.get(0).getUnitPrice());
+        System.out.println(res.get(0).getPmsSpu().toString());
+        System.out.println("------------------------");
+
         assertThat(res).size().isGreaterThanOrEqualTo(0);
     }
 

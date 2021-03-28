@@ -54,7 +54,6 @@ public class PmsSku extends Auditable<String> {
      * TODO：NotNull保证发布offer时候，spu 必须指定。你再确认下
      */
     @NotNull
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "spu_id")
     private PmsSpu pmsSpu;

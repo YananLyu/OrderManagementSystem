@@ -46,7 +46,6 @@ public class PmsSpu extends Auditable<String> {
     /**
      * 一对多的关系，一个spu可以有多个sku
      * product/pms_spu id, 外键,将产品信息关联进来
-
      */
     @OneToMany(mappedBy = "pmsSpu", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
     private List<PmsSku> pmsSkuSet;
