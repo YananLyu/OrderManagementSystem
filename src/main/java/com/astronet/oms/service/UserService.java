@@ -1,18 +1,15 @@
 package com.astronet.oms.service;
 
 import com.astronet.oms.dtos.*;
-import com.astronet.oms.exception.SkuNotFoundException;
+import com.astronet.oms.exception.UserNotFoundException;
 import com.astronet.oms.repository.UserRepository;
 import com.astronet.oms.entity.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Zhubo Deng
@@ -28,21 +25,44 @@ public class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
+    /**
+     * C - Create
+     * @param userCreateDto
+     * @return
+     */
     public UserDto createUser(UserCreateDto userCreateDto) {
         User savedUser = repository.save(modelMapper.map(userCreateDto, User.class));
         return modelMapper.map(savedUser, UserCreateDto.class);
     }
 
-//    public List<UserDto> readAllUser() {
-//
-//    }
+    /**
+     * R - Read all
+     * @return
+     */
+    public List<UserDto> readAllUser() {
+        List<User> findAll = repository.findAllByOrderByIdDesc();
+        return findAll.stream()
+                .map(x -> modelMapper.map(x, UserReadDto.class))
+                .collect(Collectors.toList());
+    }
 
+    /**
+     * R - Read one
+     * @param id
+     * @return
+     */
     public UserReadDto readOneUser(Long id) {
         User user = repository.findById(id)
-                .orElseThrow(() -> new SkuNotFoundException(id));
+                .orElseThrow(() -> new UserNotFoundException(id));
         return modelMapper.map(user, UserReadDto.class);
     }
 
+    /**
+     * U - Update
+     * @param newUserUpdateDto
+     * @param id
+     * @return
+     */
     public UserDto updateUser(UserUpdateDto newUserUpdateDto, Long id) {
         User newUser = modelMapper.map(newUserUpdateDto, User.class);
         User updatedUser = repository.findById(id)
@@ -59,6 +79,10 @@ public class UserService {
         return modelMapper.map(updatedUser, UserUpdateDto.class);
     }
 
+    /**
+     * D - Delete
+     * @param id
+     */
     public void deleteUser(Long id) {
         repository.deleteById(id);
     }

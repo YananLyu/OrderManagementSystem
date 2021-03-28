@@ -1,13 +1,9 @@
 package com.astronet.oms.controller;
 
-import com.astronet.oms.convertors.dtoconverter.UserConverter;
 import com.astronet.oms.dtos.UserCreateDto;
 import com.astronet.oms.dtos.UserDto;
 import com.astronet.oms.dtos.UserReadDto;
 import com.astronet.oms.dtos.UserUpdateDto;
-import com.astronet.oms.entity.User;
-import com.astronet.oms.exception.SkuNotFoundException;
-import com.astronet.oms.repository.UserRepository;
 import com.astronet.oms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,11 +38,10 @@ public class UserController {
      * R - Read
      * @return
      */
-//    @GetMapping("/users")
-//    public List<UserDto> readAllUser() {
-//        List<User> findAll = repository.findAllByOrderByIdDesc();
-//        return converter.entityToDto(findAll);
-//    }
+    @GetMapping("/users")
+    public List<UserDto> readAllUser() {
+        return service.readAllUser();
+    }
 
     /**
      * R - Read one

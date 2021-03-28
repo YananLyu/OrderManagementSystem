@@ -1,11 +1,9 @@
 package com.astronet.oms.controller;
 
-import com.astronet.oms.convertors.dtoconverter.PmsSkuConverter;
+import com.astronet.oms.dtos.PmsSkuCreateDto;
 import com.astronet.oms.dtos.PmsSkuDto;
-import com.astronet.oms.entity.PmsSku;
-import com.astronet.oms.enums.OfferStatusEnum;
-import com.astronet.oms.exception.SkuNotFoundException;
-import com.astronet.oms.repository.PmsSkuRepository;
+import com.astronet.oms.dtos.PmsSkuUpdateDto;
+import com.astronet.oms.service.PmsSkuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,20 +20,16 @@ import java.util.List;
 public class SkuController {
 
     @Autowired
-    private PmsSkuRepository repository;
-
-    @Autowired
-    private PmsSkuConverter converter;
+    private PmsSkuService service;
 
     /**
      * C - Create
-     * @param pmsSkuDto
+     * @param pmsSkuCreateDto
      * @return
      */
     @PostMapping("/admin/offers")
-    public PmsSkuDto newOffer(@RequestBody PmsSkuDto pmsSkuDto) {
-        PmsSku savedItem = repository.save(converter.dtoToEntity(pmsSkuDto));
-        return converter.entityToDto(savedItem);
+    public PmsSkuDto createOffer(@RequestBody PmsSkuCreateDto pmsSkuCreateDto) {
+        return service.createOffer(pmsSkuCreateDto);
     }
 
     /**
@@ -43,9 +37,8 @@ public class SkuController {
      * @return
      */
     @GetMapping("/offers")
-    public List<PmsSkuDto> all() {
-        List<PmsSku> findAll = repository.findAllByOrderByIdDesc();
-        return converter.entityToDto(findAll);
+    public List<PmsSkuDto> readAllOffers() {
+        return service.readAllOffers();
     }
 
     /**
@@ -54,13 +47,9 @@ public class SkuController {
      * @return
      */
     @GetMapping("/offers/{id}")
-    public ResponseEntity<PmsSkuDto> one(@PathVariable Long id) {
-        PmsSku item = repository.findById(id)
-                .orElseThrow(() -> new SkuNotFoundException(id));
-        return ResponseEntity.ok(converter.entityToDto(item));
+    public ResponseEntity<PmsSkuDto> readOneOffer(@PathVariable Long id) {
+        return ResponseEntity.ok(service.readOneOffer(id));
     }
-
-
 
     /**
      * R - Retrieval all the active offers
@@ -68,8 +57,7 @@ public class SkuController {
      */
     @GetMapping("/offers/active")
     public List<PmsSkuDto> activeOffers() {
-        List<PmsSku> items = repository.findByOfferStatus(OfferStatusEnum.ACTIVE);
-        return converter.entityToDto(items);
+        return service.activeOffers();
     }
 
     /**
@@ -78,8 +66,7 @@ public class SkuController {
      */
     @GetMapping("/offers/inactive")
     public List<PmsSkuDto> inactiveOffers() {
-        List<PmsSku> items = repository.findByOfferStatus(OfferStatusEnum.INACTIVE);
-        return converter.entityToDto(items);
+        return service.inactiveOffers();
     }
 
     /**
@@ -89,24 +76,8 @@ public class SkuController {
      * @return
      */
     @PutMapping("/offers/{id}")
-    public PmsSkuDto updateOffer(@RequestBody PmsSkuDto newPmsSkuDto, @PathVariable Long id) {
-        PmsSku newPmsSku = converter.dtoToEntity(newPmsSkuDto);
-        PmsSku updatedPmsSku = repository.findById(id)
-                .map(sku -> {
-                    sku.setUnitPrice(newPmsSku.getUnitPrice());
-                    sku.setAdminPrice(newPmsSku.getAdminPrice());
-                    sku.setModPrice(newPmsSku.getModPrice());
-                    sku.setQuantity(newPmsSku.getQuantity());
-                    sku.setQuantityLeft(newPmsSku.getQuantityLeft());
-                    sku.setOfferStatus(newPmsSku.getOfferStatus());
-                    sku.setOfferNote(newPmsSku.getOfferNote());
-                    return repository.save(sku);
-                })
-                .orElseGet(() -> {
-                    newPmsSku.setId(id);
-                    return repository.save(newPmsSku);
-                });
-        return converter.entityToDto(updatedPmsSku);
+    public PmsSkuDto updateOffer(@RequestBody PmsSkuUpdateDto newPmsSkuDto, @PathVariable Long id) {
+        return service.updateOffer(newPmsSkuDto, id);
     }
 
     /**
@@ -115,7 +86,7 @@ public class SkuController {
      */
     @DeleteMapping("/admin/offers/{id}")
     public void deleteOffer(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.deleteOffer(id);
     }
 
 }

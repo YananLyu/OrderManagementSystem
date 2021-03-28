@@ -6,6 +6,7 @@ package com.astronet.oms.entity;
  */
 
 import com.astronet.oms.entity.auditor.Auditable;
+import com.astronet.oms.enums.PaymentStatusEnum;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -61,12 +62,12 @@ public class UserPayment extends Auditable<String> {
     /**
      * tracking 状态
      * 0: PENDING, 默认值
-     * 1：RECEIVE
-     * 2: ISSUE
+     * 1：RECEIVED
+     * 2: ISSUED
      */
     @NotNull
-    @Column(name = "payment_status", columnDefinition = "TINYINT DEFAULT 0")
-    private Integer paymentStatus;
+    @Column(name = "payment_status")
+    private PaymentStatusEnum paymentStatus;
 
     /**
      * 该快递的备注

@@ -1,6 +1,7 @@
 package com.astronet.oms.entity;
 
 import com.astronet.oms.entity.auditor.Auditable;
+import com.astronet.oms.enums.PaymentTypeEnum;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -37,30 +38,51 @@ public class UserPaymentMethods extends Auditable<String> {
     @JoinColumn(name = "user_id")
     private User user;
 
-    /**
-     * 信用卡信息
-     */
-    @Size(max = 255)
-    @Column(name = "card_info")
-    private String cardInfo;
+//    /**
+//     * 信用卡信息
+//     */
+//    @Size(max = 255)
+//    @Column(name = "card_info")
+//    private String cardInfo;
 
-//    /**
-//     * Credit Card Company信用卡公司
-//     * E.g., Chase, Bank of America, Wells Fargo, U.S. Bank, Citibank, Captial One,
-//     * PNC, BarclayCard US, Staples, Office Depot, Dell, Target.
-//     */
-//    @NotNull
-//    @Size(max = 20)
-//    @Column(name = "credit_card_company")
-//    private String creditCardCompany;
-//
-//    /**
-//     * Card Network: 信用卡网络
-//     * E.g., Visa, MasterCard, American Express, Discover, Store credit card.
-//     */
-//    @NotNull
-//    @Size(max = 20)
-//    @Column(name = "credit_card_company")
-//    private String creditCardCompany;
+    /**
+     * Payment Type
+     */
+    @NotNull
+    @Column(name = "payment_type")
+    private PaymentTypeEnum paymentType;
+
+    /**
+    * Credit Card Company
+    * E.g., Chase, Bank of America, Wells Fargo, U.S. Bank, Citibank, Captial One,
+    * PNC, BarclayCard US, Staples, Office Depot, Dell, Target.
+    */
+    @NotNull
+    @Size(max = 20)
+    @Column(name = "card_company")
+    private String cardCompany;
+
+    /**
+    * Card Network
+    * E.g., Visa, MasterCard, American Express, Discover, Store credit card.
+    */
+    @NotNull
+    @Size(max = 20)
+    @Column(name = "card_network")
+    private String cardNetwork;
+
+    /**
+     * account holder
+     */
+    @NotNull
+    @Column(name = "account_holder")
+    private String accountHolder;
+
+    /**
+     * account number
+     */
+    @NotNull
+    @Column(name = "account_number")
+    private Long accountNumber;
 
 }

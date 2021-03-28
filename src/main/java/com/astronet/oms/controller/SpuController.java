@@ -1,10 +1,6 @@
 package com.astronet.oms.controller;
 
-import com.astronet.oms.convertors.dtoconverter.PmsSpuConverter;
 import com.astronet.oms.dtos.PmsSpuDto;
-import com.astronet.oms.entity.PmsSpu;
-import com.astronet.oms.exception.SpuNotFoundException;
-import com.astronet.oms.repository.PmsSpuRepository;
 import com.astronet.oms.service.PmsSpuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,11 +47,10 @@ public class SpuController {
      * 查多条记录
      * @return List<PmsSpu>  即products列表，按照ID倒序排
      */
-//    @GetMapping("/products")
-//    public List<PmsSpuDto> readAllProduct() {
-//        List<PmsSpu> findAll = repository.findAllByOrderByIdDesc();
-//        return converter.entityToDto(findAll);
-//    }
+    @GetMapping("/products")
+    public List<PmsSpuDto> readAllProduct() {
+        return service.readAllProduct();
+    }
 
     /**
      * 查 R

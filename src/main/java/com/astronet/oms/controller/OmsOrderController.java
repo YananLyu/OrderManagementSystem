@@ -1,11 +1,14 @@
 package com.astronet.oms.controller;
 
 import com.astronet.oms.convertors.dtoconverter.OmsOrderConverter;
+import com.astronet.oms.dtos.OmsOrderCreateDto;
 import com.astronet.oms.dtos.OmsOrderDto;
+import com.astronet.oms.dtos.OmsOrderUpdateDto;
 import com.astronet.oms.entity.OmsOrder;
 import com.astronet.oms.enums.InboundStatusEnum;
 import com.astronet.oms.exception.SkuNotFoundException;
 import com.astronet.oms.repository.OmsOrderRepository;
+import com.astronet.oms.service.OmsOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,20 +26,16 @@ import java.util.List;
 public class OmsOrderController {
 
     @Autowired
-    OmsOrderRepository repository;
-
-    @Autowired
-    OmsOrderConverter converter;
+    OmsOrderService service;
 
     /**
      * C - Create
-     * @param omsOrderDto
+     * @param omsOrderCreateDto
      * @return
      */
     @PostMapping("/user/inbounds")
-    public OmsOrderDto newInbound(@RequestBody OmsOrderDto omsOrderDto) {
-        OmsOrder savedItem = repository.save(converter.dtoToEntity(omsOrderDto));
-        return converter.entityToDto(savedItem);
+    public OmsOrderDto createInbound(@RequestBody OmsOrderCreateDto omsOrderCreateDto) {
+        return service.createInbound(omsOrderCreateDto);
     }
 
     /**
@@ -44,9 +43,8 @@ public class OmsOrderController {
      * @return
      */
     @GetMapping("/inbounds")
-    public List<OmsOrderDto> all() {
-        List<OmsOrder> findAll = repository.findAllByOrderByIdDesc();
-        return converter.entityToDto(findAll);
+    public List<OmsOrderDto> readAllInbounds() {
+        return service.readAllInbounds();
     }
 
     /**
@@ -55,30 +53,26 @@ public class OmsOrderController {
      * @return
      */
     @GetMapping("/inbounds/{id}")
-    public ResponseEntity<OmsOrderDto> one(@PathVariable Long id) {
-        OmsOrder item = repository.findById(id)
-                .orElseThrow(() -> new SkuNotFoundException(id));
-        return ResponseEntity.ok(converter.entityToDto(item));
+    public ResponseEntity<OmsOrderDto> readOneInbound(@PathVariable Long id) {
+        return ResponseEntity.ok(service.readOneInbound(id));
     }
 
     /**
      * R - Retrieval all the wait-for-payment inbounds
      * @return
      */
-    @GetMapping("/inbounds/waitForPayment")
+    @GetMapping("/inbounds/wait_for_payment")
     public List<OmsOrderDto> waitForPaymentInbounds() {
-        List<OmsOrder> items = repository.findByOrderStatus(InboundStatusEnum.WAIT_FOR_PAYMENT);
-        return converter.entityToDto(items);
+        return service.waitForPaymentInbounds();
     }
 
     /**
      * R - Retrieval all the wait-for-delivery inbounds
      * @return
      */
-    @GetMapping("/inbounds/waitForDelivery")
+    @GetMapping("/inbounds/wait_for_delivery")
     public List<OmsOrderDto> waitForDeliveryInbounds() {
-        List<OmsOrder> items = repository.findByOrderStatus(InboundStatusEnum.WAIT_FOR_DELIVERY);
-        return converter.entityToDto(items);
+        return service.waitForDeliveryInbounds();
     }
 
     /**
@@ -87,8 +81,7 @@ public class OmsOrderController {
      */
     @GetMapping("/inbounds/delivered")
     public List<OmsOrderDto> deliveredInbounds() {
-        List<OmsOrder> items = repository.findByOrderStatus(InboundStatusEnum.DELIVERED);
-        return converter.entityToDto(items);
+        return service.deliveredInbounds();
     }
 
     /**
@@ -97,8 +90,7 @@ public class OmsOrderController {
      */
     @GetMapping("/inbounds/completed")
     public List<OmsOrderDto> completedInbounds() {
-        List<OmsOrder> items = repository.findByOrderStatus(InboundStatusEnum.COMPLETED);
-        return converter.entityToDto(items);
+        return service.completedInbounds();
     }
 
     /**
@@ -107,8 +99,7 @@ public class OmsOrderController {
      */
     @GetMapping("/inbounds/closed")
     public List<OmsOrderDto> closedInbounds() {
-        List<OmsOrder> items = repository.findByOrderStatus(InboundStatusEnum.CLOSED);
-        return converter.entityToDto(items);
+        return service.closedInbounds();
     }
 
     /**
@@ -117,8 +108,7 @@ public class OmsOrderController {
      */
     @GetMapping("/inbounds/invalid")
     public List<OmsOrderDto> invalidInbounds() {
-        List<OmsOrder> items = repository.findByOrderStatus(InboundStatusEnum.INVALID);
-        return converter.entityToDto(items);
+        return service.invalidInbounds();
     }
 
     /**
@@ -129,21 +119,8 @@ public class OmsOrderController {
      * @return
      */
     @PutMapping("/Inbounds/{id}")
-    public OmsOrderDto updateInbounds(@RequestBody OmsOrderDto newOmsOrderDto, @PathVariable Long id) {
-        OmsOrder newOmsOrder = converter.dtoToEntity(newOmsOrderDto);
-        OmsOrder updatedOmsOrder = repository.findById(id)
-                .map(order -> {
-                    order.setOrderStatus(newOmsOrder.getOrderStatus());
-
-
-
-                    return repository.save(order);
-                })
-                .orElseGet(() -> {
-                    newOmsOrder.setId(id);
-                    return repository.save(newOmsOrder);
-                });
-        return converter.entityToDto(updatedOmsOrder);
+    public OmsOrderDto updateInbounds(@RequestBody OmsOrderUpdateDto newOmsOrderDto, @PathVariable Long id) {
+        return service.updateInbounds(newOmsOrderDto, id);
     }
 
     /**
@@ -152,7 +129,7 @@ public class OmsOrderController {
      */
     @DeleteMapping("/user/inbounds/{id}")
     public void deleteInbound(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.deleteInbound(id);
     }
 
 }

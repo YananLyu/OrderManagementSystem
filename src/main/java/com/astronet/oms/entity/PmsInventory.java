@@ -1,6 +1,7 @@
 package com.astronet.oms.entity;
 
 import com.astronet.oms.entity.auditor.Auditable;
+import com.astronet.oms.enums.AddressTypeEnum;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -38,8 +39,8 @@ public class PmsInventory extends Auditable<String> {
      * 2: ADMIN_STORAGE, 即 管理员提供的仓库
      * default value: 0;
      */
-    @Column(name = "addr_type", columnDefinition = "TINYINT DEFAULT 0")
-    private Integer addrType;
+    @Column(name = "addr_type")
+    private AddressTypeEnum addrType;
 
     /**
      * 地址line1

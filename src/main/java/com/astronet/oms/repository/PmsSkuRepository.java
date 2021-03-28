@@ -23,8 +23,6 @@ public interface PmsSkuRepository extends JpaRepository<PmsSku, Long> {
 
     List<PmsSku> findByOfferStatus(OfferStatusEnum status);
 
-    long countByOfferStatus(OfferStatusEnum status);
-
-    long countByQuantity(Long quantity);
+    Long countByOfferStatus(OfferStatusEnum status);
 
 }
