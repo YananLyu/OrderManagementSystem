@@ -7,6 +7,7 @@ package com.astronet.oms.entity;
 
 import com.astronet.oms.entity.auditor.Auditable;
 import com.astronet.oms.enums.OfferStatusEnum;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -54,8 +55,9 @@ public class PmsSku extends Auditable<String> {
      * TODO：NotNull保证发布offer时候，spu 必须指定。你再确认下
      */
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "spu_id")
+    @JsonManagedReference
     private PmsSpu pmsSpu;
 
     /**

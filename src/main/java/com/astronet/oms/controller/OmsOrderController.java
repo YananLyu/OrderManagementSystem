@@ -11,6 +11,7 @@ import com.astronet.oms.repository.OmsOrderRepository;
 import com.astronet.oms.service.OmsOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,13 +30,23 @@ public class OmsOrderController {
     OmsOrderService service;
 
     /**
-     * C - Create
+     * C - Create, order default type is REGULAR(0)
      * @param omsOrderCreateDto
      * @return
      */
     @PostMapping("/user/inbounds")
     public OmsOrderDto createInbound(@RequestBody OmsOrderCreateDto omsOrderCreateDto) {
         return service.createInbound(omsOrderCreateDto);
+    }
+
+    /**
+     * C - Create, set order type to PROPOSED(1)
+     * @param omsOrderCreateDto
+     * @return
+     */
+    @PostMapping("/offers/proposed")
+    public OmsOrderDto createProposed(@RequestBody OmsOrderCreateDto omsOrderCreateDto) {
+        return service.createProposed(omsOrderCreateDto);
     }
 
     /**

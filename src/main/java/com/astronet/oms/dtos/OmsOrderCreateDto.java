@@ -1,6 +1,8 @@
 package com.astronet.oms.dtos;
 
 import com.astronet.oms.entity.User;
+import com.astronet.oms.enums.InboundStatusEnum;
+import com.astronet.oms.enums.OrderTypeEnum;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -21,7 +23,7 @@ public class OmsOrderCreateDto implements OmsOrderDto {
      * Order information
      */
     private Long super_order_id;
-    private Integer orderStatus;
+    private OrderTypeEnum orderType;
     private User user;
     private String username;
     private BigDecimal totalAmount;

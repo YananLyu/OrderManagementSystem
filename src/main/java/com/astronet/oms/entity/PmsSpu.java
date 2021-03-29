@@ -1,6 +1,7 @@
 package com.astronet.oms.entity;
 
 import com.astronet.oms.entity.auditor.Auditable;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -48,6 +49,7 @@ public class PmsSpu extends Auditable<String> {
      * product/pms_spu id, 外键,将产品信息关联进来
      */
     @OneToMany(mappedBy = "pmsSpu", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
+    @JsonBackReference
     private List<PmsSku> pmsSkuSet;
 
     /**

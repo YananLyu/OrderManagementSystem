@@ -3,6 +3,7 @@ package com.astronet.oms.service;
 import com.astronet.oms.dtos.*;
 import com.astronet.oms.entity.OmsOrder;
 import com.astronet.oms.enums.InboundStatusEnum;
+import com.astronet.oms.enums.OrderTypeEnum;
 import com.astronet.oms.exception.InboundNotFoundException;
 import com.astronet.oms.repository.OmsOrderRepository;
 import org.modelmapper.ModelMapper;
@@ -27,12 +28,24 @@ public class OmsOrderService {
     ModelMapper mapper;
 
     /**
-     * C - Create
+     * C - Create, order default type is REGULAR(0)
      * @param omsOrderCreateDto
      * @return
      */
     public OmsOrderDto createInbound(OmsOrderCreateDto omsOrderCreateDto) {
         OmsOrder savedItem = repository.save(mapper.map(omsOrderCreateDto, OmsOrder.class));
+        return mapper.map(savedItem, OmsOrderCreateDto.class);
+    }
+
+    /**
+     * C - Create, set order type to PROPOSED(1)
+     * @param omsOrderCreateDto
+     * @return
+     */
+    public OmsOrderDto createProposed(OmsOrderCreateDto omsOrderCreateDto) {
+        OmsOrder omsOrder = mapper.map(omsOrderCreateDto, OmsOrder.class);
+        omsOrder.setOrderType(OrderTypeEnum.PROPOSED);
+        OmsOrder savedItem = repository.save(omsOrder);
         return mapper.map(savedItem, OmsOrderCreateDto.class);
     }
 

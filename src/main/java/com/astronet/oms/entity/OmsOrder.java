@@ -7,6 +7,7 @@ package com.astronet.oms.entity;
 
 import com.astronet.oms.entity.auditor.Auditable;
 import com.astronet.oms.enums.InboundStatusEnum;
+import com.astronet.oms.enums.OrderTypeEnum;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -55,10 +56,19 @@ public class OmsOrder extends Auditable<String> {
     /**
      * 订单状态
      * 订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
+     * If an ENUM column is declared NOT NULL, its default value is the first element
+     * of the list of permitted values.
      */
     @NotNull
     @Column(name = "order_status")
     private InboundStatusEnum orderStatus;
+
+    /**
+     * Order type
+     */
+    @NotNull
+    @Column(name = "order_type")
+    private OrderTypeEnum orderType;
 
     /**
      * user_id
